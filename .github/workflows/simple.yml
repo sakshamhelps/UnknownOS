@@ -1,0 +1,37 @@
+name: Build
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install tools
+      run: sudo apt install -y build-essential nasm xorriso qemu-system-x86 qemu-utils git gcc-multilib
+curl
+    - name: Download Limine
+      run: |
+        cd /tmp
+        curl -L https://github.com/limine-bootloader/limine/releases/download/v7.0.0/limine-7.0.0-binary
+.zip -o limine.zip
+        mkdir -p iso/EFI/BOOT
+        unzip -o limine.zip
+    - name: Build kernel
+      run: |
+        cd kernel
+        make clean || true
+        CC=gcc make -j$(nproc) || make -j$(nproc) || true
+    - run: |
+        cd /tmp/limine-*-binary
+        cp BOOTX64.EFI ../iso/EFI/BOOT/
+        cp limine-bios-cd.bin ../iso/
+        cp limine-uefi-cd.bin ../iso/
+    - run: |
+        cd iso
+        xorriso -as mkisofs -b limine-bios-cd.bin -no-emul-boot -boot-load-size 4 -boot-info-table --efi
+-boot limine-uefi-cd.bin -o ../unknownos.iso
+    - uses: actions/upload-artifact@v4
+      with:
+        name: iso
+        path: unknownos.iso
