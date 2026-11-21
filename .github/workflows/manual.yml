@@ -1,0 +1,36 @@
+name: Manual Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install tools
+      run: sudo apt install -y build-essential nasm xorriso qemu-system-x86 qemu-utils git gcc-multilib
+    - name: Get Limine
+      run: |
+        git clone --depth=1 https://github.com/limine-bootloader/limine.git /tmp/limine
+        cd /tmp/limine && make
+    - name: Build kernel
+      run: |
+        cd kernel && make clean && make -j$(nproc)
+    - name: Create ISO
+      run: |
+        mkdir -p iso/boot initrd/bin
+        cp kernel/kernel.elf iso/boot/kernel.elf
+        cd initrd && tar -cf ../iso/boot/initrd.tar . && cd ..
+        mkdir -p iso/EFI/BOOT
+        cp /tmp/limine/BOOTX64.EFI iso/EFI/BOOT/
+        cp /tmp/limine/limine-bios-cd.bin iso/
+        cp /tmp/limine/limine-uefi-cd.bin iso/
+        echo 'TIMEOUT=0' > iso/limine.cfg
+        cd iso
+        xorriso -as mkisofs -b limine-bios-cd.bin -no-emul-boot -boot-load-size 4 -boot-info-table --efi-boot limine-uefi-cd.bin -o ../unknownos.iso .
+    - name: Upload ISO
+      uses: actions/upload-artifact@v4
+      with:
+        name: iso
+        path: unknownos.iso
