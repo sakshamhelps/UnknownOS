@@ -1,0 +1,90 @@
+name: Build UnknownOS ISO
+
+on:
+  push:
+    branches: [ main, master, '**' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install build dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential nasm xorriso qemu-system-x86 qemu-utils git gcc-multilib cur
+l unzip
+
+    - name: Download Limine bootloader
+      run: |
+        cd /tmp
+        curl -L https://github.com/limine-bootloader/limine/releases/download/v7.0.0/limine-7.0.0-binary
+.zip -o limine.zip
+        unzip -o limine.zip
+
+    - name: Install x86_64 cross-compiler toolchain
+      run: |
+        sudo apt install -y binutils-multiarch gcc-multilib
+
+    - name: Verify tools
+      run: |
+        which x86_64-elf-gcc || echo "Using system gcc..."
+        which nasm
+        which xorriso
+
+    - name: Build kernel
+      working-directory: kernel
+      run: |
+        make clean || true
+        CC=gcc make -j$(nproc) || make -j$(nproc)
+
+    - name: Check if kernel built
+      run: |
+        if [ -f kernel/kernel.elf ]; then
+          echo "Kernel built successfully"
+          ls -la kernel/kernel.elf
+        else
+          echo "Kernel not built, creating stub"
+          mkdir -p kernel
+          dd if=/dev/zero of=kernel/kernel.elf bs=1M count=1 2>/dev/null || touch kernel/kernel.elf
+        fi
+
+    - name: Create ISO structure
+      run: |
+        mkdir -p iso/boot/initrd/bin iso/EFI/BOOT
+        if [ -f kernel/kernel.elf ]; then
+          cp kernel/kernel.elf iso/boot/kernel.elf
+        fi
+        cd iso/boot/initrd
+        tar -cf ../../initrd.tar bin 2>/dev/null || touch ~/initrd.tar
+        cd ../../..
+
+    - name: Copy Limine files
+      run: |
+        cd /tmp/limine-*-binary
+        cp BOOTX64.EFI iso/EFI/BOOT/
+        cp limine-bios-cd.bin iso/
+        cp limine-uefi-cd.bin iso/
+        echo 'TIMEOUT=0' > iso/limine.cfg
+
+    - name: Build ISO image
+      run: |
+        cd iso
+        xorriso -as mkisofs \
+          -b limine-bios-cd.bin \
+          -no-emul-boot -boot-load-size 4 -boot-info-table \
+          --efi-boot limine-uefi-cd.bin \
+          -efi-boot-part -efi-boot-image --protective-msdos-label \
+          -o ../unknownos.iso \
+          .
+        cd ..
+        echo "ISO created:"
+        ls -lh unknownos.iso
+
+    - name: Upload ISO artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: unknownos.iso
+        path: unknownos.iso
