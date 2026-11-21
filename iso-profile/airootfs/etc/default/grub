@@ -1,0 +1,15 @@
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="Unknown OS"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=3 rd.udev.log_level=3 vt.global_cursor_default=0 nowatchdog nvme_core.default_ps_max_latency_us=0"
+GRUB_CMDLINE_LINUX=""
+GRUB_PRELOAD_MODULES="part_gpt part_msdos png tga jpeg"
+GRUB_TERMINAL_INPUT=at_keyboard
+GRUB_TERMINAL_OUTPUT=gfxterm
+GRUB_GFXMODE=1920x1080x32,auto
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_DISABLE_RECOVERY=true
+GRUB_DISABLE_SUBMENU=y
+GRUB_ENABLE_CRYPTODISK=n
+GRUB_THEME="/boot/grub/themes/unknownos/theme.txt"

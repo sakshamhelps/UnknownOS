@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Welcome to Unknown OS
+GenericName=Welcome
+Comment=Get started with Unknown OS
+Exec=konsole -e bash -c "fastfetch; echo; echo 'Welcome to Unknown OS 1.0.0-IND'; echo 'Support: byrex.me@proton.me'; echo 'Documentation: https://byrex.me/docs'; echo; read -p 'Press Enter to close...'"
+Icon=unknownos
+Terminal=false
+Categories=System;Utility;
+StartupNotify=true
+Keywords=welcome;help;guide;unknownos;

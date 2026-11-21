@@ -1,0 +1,14 @@
+NAME="Unknown OS"
+VERSION="1.0.0-IND (Gold Master)"
+ID=unknownos
+ID_LIKE=arch
+PRETTY_NAME="Unknown OS 1.0.0-IND"
+ANSI_COLOR="38;2;0;122;255"
+HOME_URL="https://byrex.me"
+SUPPORT_URL="mailto:byrex.me@proton.me"
+BUG_REPORT_URL="mailto:byrex.me@proton.me"
+PRIVACY_POLICY_URL="https://byrex.me/privacy"
+VERSION_CODENAME="Gold Master"
+VARIANT="India Edition"
+VARIANT_ID=india
+BUILD_ID="2026.11.21"

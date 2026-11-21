@@ -1,0 +1,17 @@
+---
+componentName: "Unknown OS"
+version: "1.0.0-IND"
+shortVersion: "1.0"
+license: "Proprietary"
+licenseFile: "LICENSE"
+acknowledgments: "Built by byrex <byrex.me@proton.me> for India"
+welcomeExpanding: true
+startWindowWidth: 800
+startWindowHeight: 600
+windowIcon: "unknownos.svg"
+windowTitle: "Install Unknown OS"
+productName: "Unknown OS"
+productVersion: "1.0.0-IND"
+productIcon: "unknownos.svg"
+productLogo: "unknownos.svg"
+sidebarStyle: "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #0a0a1a, stop:1 #1a1a3a); color: #ffffff;"

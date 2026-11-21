@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="3840" height="2160" viewBox="0 0 3840 2160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="loginBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#050510;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0a1a;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="loginGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" style="stop-color:#007aff;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#007aff;stop-opacity:0" />
+    </radialGradient>
+    <radialGradient id="loginIndiaGlow" cx="20%" cy="80%" r="30%">
+      <stop offset="0%" style="stop-color:#138808;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#138808;stop-opacity:0" />
+    </radialGradient>
+    <radialGradient id="loginSaffronGlow" cx="80%" cy="80%" r="30%">
+      <stop offset="0%" style="stop-color:#ff9933;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ff9933;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="3840" height="2160" fill="url(#loginBg)"/>
+  <ellipse cx="1920" cy="864" rx="2000" ry="1400" fill="url(#loginGlow)"/>
+  <ellipse cx="768" cy="1728" rx="800" ry="500" fill="url(#loginIndiaGlow)"/>
+  <ellipse cx="3072" cy="1728" rx="800" ry="500" fill="url(#loginSaffronGlow)"/>
+
+  <g transform="translate(1920, 700)" text-anchor="middle">
+    <text x="0" y="-40" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="700" fill="#ffffff" letter-spacing="6">UNKNOWN</text>
+    <text x="0" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="200" fill="#007aff" letter-spacing="6">OS</text>
+    <line x1="-150" y1="70" x2="150" y2="70" stroke="#007aff" stroke-width="2" opacity="0.5"/>
+    <text x="0" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="400" fill="#8888aa" letter-spacing="3">1.0.0-IND</text>
+    <text x="0" y="155" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="#ff9933" letter-spacing="2">INDIA EDITION</text>
+  </g>
+
+  <!-- Login prompt area indicator -->
+  <g transform="translate(1920, 1400)" text-anchor="middle" opacity="0.6">
+    <rect x="-200" y="-30" width="400" height="60" rx="30" fill="#1e1e2e" stroke="#3a3a5a" stroke-width="1"/>
+    <text x="0" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#8888aa">Enter password to unlock</text>
+  </g>
+
+  <text x="1920" y="2080" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#444466">Support: byrex.me@proton.me</text>
+</svg>

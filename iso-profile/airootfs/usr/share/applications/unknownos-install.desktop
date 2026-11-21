@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Install Unknown OS
+GenericName=OS Installer
+Comment=Install Unknown OS to your hard drive
+Exec=pkexec calamares -d
+Icon=system-software-install
+Terminal=false
+Categories=System;Settings;
+StartupNotify=true
+Keywords=install;setup;calamares;unknownos;
+OnlyShowIn=KDE;
